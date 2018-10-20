@@ -28,8 +28,4 @@ app.get("/chocolate", function (req, res) {
 
 *Challenge:* Add some code so that your server sends one message when the endpoint is `/node` and another one when it's `/girls`.
 
-## [**next step >>>**](step06.md)
-
-| Keyword | Explanation |
-|--------|:-------------------------------:|
-| routing | The definition of application endpoints and how they respond to client requests. |
+### &#x202b; [לשלב 6 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step06.md)

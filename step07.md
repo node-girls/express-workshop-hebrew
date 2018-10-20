@@ -94,12 +94,4 @@ Refresh your server and have another go at writing a blogpost.
 
 You should now see an object in the console.  The key should be `blogpost`, just like the name attribute in the form on the HTML page.  The value of `blogpost` will be your message!
 
-## [**Go to step 8 >>>**](step08.md)
-
----
-| Keyword | Explanation |
-|--------|:-------------------------------:|
-| `GET` | An HTTP method for fetching data. Read more [here](http://www.w3schools.com/tags/ref_httpmethods.asp). |
-| `POST` | An HTTP method for sending data. Read more [here](http://www.w3schools.com/tags/ref_httpmethods.asp). |
-| `middleware` | Functions in Express that run before the final request handler.  A nice article explains in more depth [here](https://www.safaribooksonline.com/blog/2014/03/10/express-js-middleware-demystified) |
-| `express-formidable` | An Express middleware function that parses (reads) form and file data from the request.  Documentation on it [here](https://www.npmjs.com/package/express-formidable)|
+### &#x202b; [לשלב 8 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step08.md)

@@ -71,11 +71,4 @@ $ node server.js
 
 Now, open your favourite browser (we like Chrome), and navigate to `http://localhost:3000`. If you see your message in the browser, congratulations! You just sent your first response from the server.
 
-### [Go to Step 5 >>>>](step05.md)
-
-| Keyword | Explanation |
-|--------|:-------------------------------:|
-| handler function | A function that receives requests and tells the server how to respond to them. |
-| endpoint | The part of the URL which comes after `/`. For example: `/chocolate` is the "chocolate" endpoint. |
-| `get()` | The Express method used to set up a handler function in Express. Takes two parameters: the endpoint, and the handler function. |
-| `send()` | The Express method used to send information back to the client from the server. Updates the response object. |
+### &#x202b; [לשלב 5 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step05.md)
