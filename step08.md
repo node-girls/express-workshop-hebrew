@@ -1,118 +1,61 @@
-# Step 8 - Saving your blog post
+### &#x202b; שלב שמיני: חילוץ פוסט הבלוג שלך
 
-Right now, your precious blog posts aren't being saved anywhere, which is a bit of a shame.  Let's do something about that.
+&#x202b;
+אז עכשיו יש לך handler ל-endpoint חדש ששמו `create-post/`. השלב הבא הוא למצוא את הפוסט לבלוג שלנו.
 
-### JSON - the handy data format
+&#x202b;
+התוכן של הפוסט בבלוג שלך מוסתר בתוך האובייקט `req` איפה שהוא.
+לרוב, היית מחלצת אותו מתוך `req.body`.
+נסי להדפיס לקונסול את `req.body` עכשיו.
 
-You'll note that in the data folder there's a new file called `posts.json`.
+&#x202b;
+קיבלת `undefined` ? אל תדאגי, זה בסדר.
+כאשר מידע נשלח אל השרת במתודת `POST` כאובייקט `FormData`, עלינו לעשות דברים קצת אחרת כדי לגשת אל הנתונים בתוך הבקשה.
 
-JSON is a type of file for structuring data in a readable way. It is also a really popular format for sending data across the web.
+&#x202b;
+אנחנו צריכות עוד פונקצית middleware, משהו שיוכל לחלץ את המידע מתוך אובייקט ה-`FormData`.
+בשביל זה אנחנו נשתמש ב-`express-formidable`, זוהי עוד שכבת middleware ב-Express.
+מתודה זו תחלץ את המידע מהבקשה ותהפוך אותה לזמינה בשבילך ב-`req.fields`.
 
-JSON is a string representation of a Javascript object. JSON objects convert really easily to Javascript objects, and vice versa, with JSON.parse() and JSON.stringify().
-
-(If you're not sure about Javascript objects, have a chat with your mentor and your team.)
-
-If you look at `posts.json` will see there's already one blog post there. The format is:
-
-```js
-{
-    [timestamp]: [blog post message]
-}
-```
-
-We've used a timestamp as the key so that the blog posts are listed in chronological order. Also, it's a record of when the blog post was created.
-
-### Writing to your hard drive
-
-Anytime a blog post comes through to the server, we want to save the data on your computer's hard drive.  To do this, we need to use a built-in Node module: `fs`, which stands for 'file-system'.
-
-Built-in Node modules (core Node modules) are rather like the built-in Express middleware functions.  Only difference is that where you need to have installed Express to use Express middleware functions, the core Node modules come automatically with Node itself.
-
-To use `fs`, you'll need to require it at the top of your server file:
-
-```js
-var fs = require('fs');
-```
-
-The method we need to write to your hard drive is `fs.writeFile`.
-
-```js
-fs.writeFile('path/to/file', yourData, function (error) {
-    // do something
-});
-```
-* Argument 1: the location of the file you want to write to
-* Argument 2: the data you want to write
-* Argument 3: the callback function
-
-The 'path/to/file' will be replaced with the actual path to the file you want to write to.  If it doesn't exist, `fs.writeFile` cleverly creates one for you.  But we already have `posts.json`, so not to worry.
+&#x202b;
+הפעם, `express-formidable` לא קיימת עדיין, ונצטרך להתקין אותה במיוחד.
 
 
-### Reading from your hard drive
-To read data that's already there, you would use `fs.readFile`.  The way to use `fs.readFile` is very similar to `fs.writeFile`:
+#### &#x202b; התקנת express-formidable
 
-```js
-fs.readFile('path/to/file', function (error, file) {
-    // do something
-});
-```
-* Argument 1: the location of the file you want to write to
-* Argument 2: the callback function
-
-
-You'll notice that `fs.readFile`'s callback function takes a second argument.  That argument would be the file you're reading.
-
-
-
-Let's read the data from the `posts.json` file.  Make sure you've `require`d the `fs` core Node module at the top of your server file somewhere.
-
-Add this code to your server (put it anywhere after the `require`s for now):
-
-```js
-fs.readFile(__dirname + '/data/posts.json', function (error, file) {
-
-    console.log(file);
-});
-```
-
-
-(`__dirname` is a Node global object that gives you a path to current working directory. It's handy if we want to avoid writing the whole path out in full.)
-
-
-If you restart the server, you'll probably see something like this:
+&#x202b;
+לכי לטרמינל שלך והתקיני את express-formidable
 ```bash
-<Buffer 7b 0a 20 20 20 20 22 31 34 36 37 33 39 30 33 35 36 32 39 31 22 3a 20 22 54 68 69 73 20 69 73 20 6d 79 20 76 65 72 79 20 66 69 72 73 74 20 62 6c 6f 67 ... >
+npm install express-formidable --save
 ```
-This is actually the contents of your `posts.json` file, but in a format called a **buffer**.  To make it a bit more human-readable, you can console.log the file to a string, like this:
+
+&#x202b;
+הדבר הבא שעליך לעשות הוא להוסיף `require` לספריית `express-formidable`, על מנת שתוכלי להשתמש בה בקוד שלך.
+ב-JavaScript אי אפשר להשתמש במקפים בשמות משתנים, לכן נקרא למשתנה `var formidable`.
+הוסיפי זאת בראש הקובץ `server.js`, ליד ה-`require` הנוספים בקוד
+```js
+var formidable = require('express-formidable');
+```
+
+&#x202b;
+כעת, במקום כלשהו בין ה-`require`-ים ובין ה-endpoint של `create-post/` הוסיפי את הקוד הבא:
 
 ```js
-console.log(file.toString());
+app.use(formidable());
+
 ```
 
-`file` is in JSON format right now.  If we want to access the blog post message inside `file`, we need to parse it from JSON back to a JavaScipt object.
+&#x202b;
+לבסוף, בתוך הפונקציה של `create-post/` הוסיפי את הקוד הבא:
 
-Add this next bit of code to your `fs.readFile`'s callback function:
 ```js
-var parsedFile = JSON.parse(file);
+console.log(req.fields);
 ```
 
-Now `parsedFile` is a normal JavaScript object, and we can access the data inside it.
+&#x202b;
+התחילי מחדש את השרת שלך, ונסי שוב לכתוב פוסט חדש לבלוג שלך.
 
-
-Ok, so we've talked about JSON and we've talked about reading and writing files.  You now have the power to save new blog post data to your hard drive!  Work with your partner and your mentor to see if you can figure the next steps out on your own.
-
-Here's a breakdown of what you want to achieve:
-* When new blog post data comes through, read from `posts.json` to access its contents
-* Add your new blog post data to the old ones.
-* Write your new combined data back to the `posts.json` file.
-
-### Things to remember
-* `fs.writeFile()` normally overwrites the target file you've given it.  Chances are you don't want to lose all your old blog posts every time you get a new one, so think about how you can combine `fs.readFile()` and `fs.writeFile()` to prevent overwriting.
-
-* You will need to convert between JSON and a JavaScript object several times.  `JSON.parse()` and `JSON.stringify()` are what you need.
-
-Oh by the way, if you want to get the current timestamp, use the JavaScript `Date.now()` method.
-
-Good luck!
+&#x202b;
+כעת, תוכלי לראות את האובייקט בקונסול שלך. ה-key אמור להיות `blogpost`, בדיוק כמו השם במאפיין בטופס ה-HTML. הערך ב-`blogpost` יהיה ההודעה שלך.
 
 ### &#x202b; [לשלב 9 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step09.md)

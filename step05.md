@@ -1,20 +1,27 @@
-# Step 5 - Routing
+# &#x202b; שלב חמישי: ניתוב
 
-At the moment our server only does one thing. When it receives a request from the `/` endpoint, it sends back the same response: "Yay Node Girls!".
+&#x202b;
+כרגע, השרת שלנו עושה רק דבר אחד. כאשר הוא מקבל request מה-endpoint `/`,
+הוא שולח בחזרה את ה-response שכתבת `Yay Node Girls` לדפדפן.
 
-Want to check? Try typing http://localhost:3000/nodegirls and see what happens.
+&#x202b;
+רוצה לבדוק? נסי להקליד http://localhost:3000/nodegirls ולראות מה קורה.
 
-However by making use of endpoints, we can make the server send different responses for different requests. This concept is called **routing**.
+&#x202b;
+אולם, ע"י שימוש ב-endpoints, אנו יכולות לגרום לשרת שלנו לשלוח תגובות שונות לבקשות שונות. הקונספט הזה נקרא **routing** - ניתוב.
 
-### What is an endpoint?
+### &#x202b; מה זה endpoint
 
-An endpoint is the part of the URL which comes after `/`. For example: `/chocolate` is the "chocolate" endpoint. It's the URL to which you send a request.
+&#x202b;
+Endpoint הוא החלק ב-URL (כתובת אתר) אשר מגיע אחרי הלוכסן `/` . לדוגמה: לדוגמה: `/chocolate` היא נקודת הקצה עבור chocolate. זו הכתובת אליה את שולחת את הבקשה.
 
-## 1. Create your own endpoints and send different responses
+## &#x202b; 1. צרי endpoints משלך ושלחי אליהן בקשות שונות
 
-We're going to try sending different responses at different endpoints. Remember the `app.get()` method? To set up routing in your server, we just need to repeat this method with different endpoints.
+&#x202b;
+אנו הולכות לנסות לשלוח responses שונים ל-endpoints שונות. זוכרת את המתודה `app.get()`? כדי להגדיר ניתובים שונים בשרת שלך, עלינו לחזור על המתודה הזו עם endpoints שונות.
 
-For example:
+&#x202b;
+לדוגמה:
 
 ```js
 app.get("/", function (req, res) {
@@ -26,6 +33,16 @@ app.get("/chocolate", function (req, res) {
 });
 ```
 
-*Challenge:* Add some code so that your server sends one message when the endpoint is `/node` and another one when it's `/girls`.
+#### &#x202b; אתגר
+
+&#x202b;
+הוסיפי קוד כך שהשרת שלך ישלח הודעה אחת כשה-endpoint היא
+
+`/node`
+
+&#x202b;
+ותגובה אחרת כאשר היא:
+
+`/girls`
 
 ### &#x202b; [לשלב 6 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step06.md)

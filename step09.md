@@ -1,19 +1,161 @@
-# Step 9 - Displaying your blog posts
+# &#x202b; שלב תשיעי: הצגת בלוג הפוסט שלך (אתגר מספר 1)
 
-So now we're saving the blog posts to the server.  Time to get them and display them on the page!
+&#x202b;
+אוקיי, זה הזמן לאתגר קטן. שלבים 9 ו-10 דורשים מעט יכולות של פתרון בעיות ממך. אבל אל תדאגי, את ב-100% יכולה לפתור את האתגרים הללו עם כל הידע שצברת עד כה בסדנה.
+כמו תמיד, תרגישי חופשי לשאול את המדריכה שלך, או את חברותייך לקבוצה.
 
-If you look inside `public/script.js`, there's a whole bunch of JavaScript code in there.  Don't worry about what all the code means, just know that it's responsible for sending a request to GET old blog posts and display them on the page underneath "Recent Posts".
+&#x202b;
+עכשיו, הפוסטים היקרים שלך לא נשמרים בשום מקום, שזה קצת חבל. בואי נעשה משהו בקשר לזה.
 
-`script.js` is trying to load existing posts by making a GET request. Look inside `script.js` and see if you can find any useful endpoints.
+### &#x202b; JSON - פורמט המידע היעיל
+
+&#x202b;
+שימי לב שתחת התיקייה data בפרויקט שלך ישנו קובץ הנקרא `posts.json`
+
+&#x202b;
+JSON הוא סוג של קובץ שעוזר לארגן את המידע בצורה קריאה. בנוסף, זהו פורמט פופולרי לשליחת מידע באינטרנט.
+
+&#x202b;
+JSON היא מחרוזת המייצגת אובייקט של JavaScript. אובייקטים של JSON ניתן להמיר בקלות לאובייקטים של JavaScript והפוך, באמצעות הפונקציות:
+* JSON.parse()
+* JSON.stringify()
+
+&#x202b;
+(אם את לא בטוח מהם אובייקטים ב-JavaScript, שאלי את המדריכה שלך או את חברותייך לקבוצה.)
+
+&#x202b;
+אם תסתכלי על הקובץ `posts.json` תראי שכבר יש שם פוסט. הפורמט נראה ככה:
+
+```js
+{
+    [timestamp]: [blog post message]
+}
+```
+
+&#x202b;
+השתמשנו ב-timestamp בתור ה-key בכדי שהפוסטים יהיו מסודרים בסדר כרונולוגי. בנוסף, זהו רישום מתי הפוסט נוצר.
+
+### &#x202b; כתבי לכונן שלך
+
+&#x202b;
+בכל פעם שפוסט מגיע אל השרת, אנחנו רוצות לשמור את המידע שלו על הכונן של המחשב. על מנת לעשות זאת, עלינו להשתמש בספרייה מובנית של Node הנקראת `fs`, קיצור ל- file-system
+
+&#x202b;
+מודולים הקיימים ב-Node מאוד דומים לפונקציות middleware המובנות ב-Express. ההבדל היחידי הוא שהם באים ביחד עם ההתקנה של Node ואין צורך להתקין אותם במיוחד, כמו ב-Express
+
+&#x202b;
+על מנת להשתמש ב-`fs`, עלינו לעשות לו `require` בראש העמוד `server.js`
+
+```js
+var fs = require('fs');
+```
+
+&#x202b;
+המתודה שעלינו לכתוב בשביל לכתוב אל הכונן שלנו נראית ככה:
+
+```js
+fs.writeFile('location-of-your-file-goes-here', yourData, function (error) {
+    // do something
+});
+```
+
+&#x202b;
+בואי נסתכל על הפונקציה הזו מקרוב.
+
+&#x202b;
+`fs.writeFile` מקבלת שלושה ארגומנטים:
+
+* &#x202b; ארגומנט 1: מיקום הקובץ אליו תרצי לכתוב.
+* &#x202b; ארגומנט 2: המידע שתרצי לכתוב.
+* &#x202b; ארגומנט 3: פונקציית callback.
+
+&#x202b;
+החליפי את 'location-of-your-file-goes-here' במיקום האמיתי של הקובץ שאליו תרצי לכתוב. אם הוא לא קיים, המתודה החכמה תיצור לך אותו במקומך. אבל כבר יש לנו את הקובץ `posts.json`, אז אל דאגה.
+
+### &#x202b; קראי מהכונן שלך
+
+&#x202b;
+בשביל לקרוא את המידע שכבר קיים שם, השתמשי במתודה `fs.readFile`.
+השימוש במתודה `fs.readFile` מאוד דומה לשימוש ב-`fs.writeFile`
+
+```js
+fs.readFile('location-of-your-file-goes-here', function (error, file) {
+    // do something
+});
+```
+
+* &#x202b; ארגומנט 1: מיקום הקובץ שתרצי לקרוא.
+* &#x202b; ארגומנט 2: פונקציית ה-callback.
+
+&#x202b;
+שימי לב, שה-callback של הפונקציה `fs.readFile` מקבל ארגומנט שני שהוא file. הארגומנט הזה הוא הקובץ שאותו את קוראת.
+
+&#x202b;
+בואי נקרא את המידע מהקובץ `posts.json`. שימי לב שעשית `require` למודול `fs` בראש הקובץ שלך.
+
+&#x202b;
+הוסיפי את הקוד הבא לשרת שלך (בכל מקום אחרי ה-`require`-ים):
+
+```js
+fs.readFile(__dirname + '/data/posts.json', function (error, file) {
+
+    console.log(file);
+});
+```
+
+&#x202b;
+**שימי לב!**
+
+&#x202b;
+`dirname__` זהו משתנה גלובלי של Node שמאפשר לך לגשת לנתיב של התיקייה הנוכחית. זה שימושי כאשר את רוצה להימנע מלכתוב את כל הנתיב שוב ושוב.
+
+&#x202b;
+אם תאתחלי את השרת שלך, את תראי משהו כזה:
+```bash
+<Buffer 7b 0a 20 20 20 20 22 31 34 36 37 33 39 30 33 35 36 32 39 31 22 3a 20 22 54 68 69 73 20 69 73 20 6d 79 20 76 65 72 79 20 66 69 72 73 74 20 62 6c 6f 67 ... >
+```
+
+&#x202b;
+זהו בעצם התוכן של הקובץ `posts.json`, אבל בפורמט שנקרא buffer. כדי להפוך את זה לקריא יותר לאדם, תוכלי להמיר את הפלט למחרוזת, כך:
+
+```js
+console.log(file.toString());
+```
+
+### &#x202b; המרה מ-JSON לאובייקט JavaScript
+
+&#x202b;
+`File` הוא בפורמט של JSON כרגע. אם תרצי לגשת לפוסטים שקיימים בתוך `file`, עליך להמיר את האובייקט מ-JSON בחזרה ל-JavaScript
+
+&#x202b;
+הוסיפי את הקוד הבא לפונקציית callback שבתוך `fs.readFile`
+
+```js
+var parsedFile = JSON.parse(file);
+```
+
+&#x202b;
+כעת `parsedFile` הוא אובייקט JavaScript נורמלי, וניתן לגשת למידע שבתוכו.
 
 
-Your `script.js` file will want to receive the JSON containing your blog posts.  Your job is to make that happen!
+#### &#x202b; אתגר קטן
 
-Express has a handy method called `res.sendFile()` that makes it easy to send files back to the client.  Feel free to use this with your JSON.
+&#x202b;
+דיברנו על JSON ועל קריאה וכתיבה לקבצים. עכשיו יש לך את הכוח לשמור פוסטים חדשים למחשב שלך. התייעצי עם חברותייך לקבוצה ועם המדריכה שלך האם תוכלי לעשות את השלבים הבאים בעצמך:
 
+1. &#x202b; כאשר נוצר פוסט חדש בבלוג, קראי אותו מ-`posts.json` ואת התוכן שלו.
+2. &#x202b; הוסיפי את המידע של הפוסט החדש אל הישנים. לכל פוסט - השתמשי ב-timestamp בתור ה-key ובמידע כ-value, כמו בדוגמה של `posts.json`
+3. &#x202b; כתבי את המידע החדש שלך אל הקובץ `posts.json`
 
-If all goes well, you should have a fully functional CMS!
+### &#x202b; שימי לב
+&#x202b;
+* &#x202b;  `fs.writeFile()` בדר”כ דורס את המידע שיש בקובץ שנותנים לו. את לא תרצי לאבד את כל המידע שיש לך בקובץ בכל פעם שתוסיפי פוסט חדש. חשבי כיצד את יכולה לשלב אתה מתודות  `fs.writeFile()` ו-  `fs.readFile()`  כדי למנוע את הדריסה.
+* &#x202b; את כנראה תצטרכי לעשות המרות בין אובייקטים של JSON לאובייקטים של JavaScript כמה וכמה פעמים. `JSON.parse()` עושה המרה מ-JSON לאובייקט JavaScript. ו- `JSON.stringify()` עושה את ההפך (אובייקט JS ל-JSON). השתמשי בשניהם.
 
-## Congratulations!! 😍
+* &#x202b; דרך אגב, אם תרצי את ה-timestamp הנוכחי, השתמשי במתודת התאריך של JavaScript שנראית כך:
+           `Date.now()`
 
-## [**Want more? <br> Try out some stretch goals >>>**](stretch-goals.md)
+&#x202b;
+בהצלחה! ברגע שתסיימי, עברי לשלב מספר 10.
+
+### &#x202b; [לשלב 10 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step10.md)

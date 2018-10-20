@@ -1,30 +1,41 @@
-# Step 7 - Sending your blog post to your server
+# &#x202b; שלב שביעי: שליחת פוסט הבלוג שלך לשרת
 
-So far we have been requesting data from our server.  But we can also *send* data to the server to be stored somewhere.  
+&#x202b;
+עד כה ביקשנו מידע מהשרת שלנו, אבל אנחנו יכולים גם לשלוח מידע אל השרת שלנו, כדי שיאוחסן איפה שהוא.
 
-### HTTP request methods
-All requests use one of the HTTP methods. The main ones are: `GET, POST, PUT, DELETE`.
+### &#x202b; מתודות HTTP request
+&#x202b;
+כל הבקשות משתמשות באחת ממתודות HTTP. המתודות העיקריות הן:
 
+* `GET`
+* `PUT`
+* `POST`
+* `DELETE`
 
-`app.get` deals with requests that use the `GET` HTTP method.  
+&#x202b;
+הפונקציה `app.get` מתעסקת רק בבקשות המשתמשות במתודת `GET`
 
-### The `POST` http request method
+### &#x202b; מתודת בקשת `POST` ב-HTTP
+&#x202b;
+כאשר שולחים מידע לשרת, אנחנו משתמשים במתודה `POST` על מנת לבצע בקשת HTTP לשרת, במקום ב-`GET`.
+על מנת להבין את ההבדל בין `GET` לבין `POST`, תוכלי לקרוא עוד בקישור הנמצא בחלק "מילות מפתח" שבהמשך.
 
-When sending data to the server, we use the `POST` http request method, instead of `GET`.  To understand the difference, follow the "POST vs GET" link in the keywords section below.
+&#x202b;
+בואי ננסה לשלוח (`POST`) טקסט כלשהו לשרת.
 
-Let's try `POST`ing some text to the server.
+&#x202b;
+אנו הולכים להוסיף טופס לדף ה-`index.html`, כך שתוכלי לכתוב את הפוסטים לבלוג שלך משם.
 
-We're going to add a form to the `index.html` page, so that you can write your blogposts from there.
-
-Open up the `index.html` file in your text editor.  If you have a look, you should see this:
+&#x202b;
+פתחי את קובץ `index.html` בעורך הטקסט שלך. כאשר תסתכלי היטב, תראי את הקוד הבא:
 
 ```html
 <div class="entry-container">
     <!--PASTE YOUR CODE HERE!! -->
 </div>
 ```
-
-**Replace the greyed-out comment with this code snippet:**
+&#x202b;
+**החליפי את ההערה המסומנת באפור עם קטע הקוד הבא:**
 
 ```html
 <h3>Create a blog post</h3>
@@ -34,34 +45,58 @@ Open up the `index.html` file in your text editor.  If you have a look, you shou
 </form>
 ```
 
-* This form has a text area and a Send button.  
-* The `action` attribute is the endpoint form data will be sent to.
-* The `name` attribute will be used later to reference the data.
+&#x202b;
+בואי נביט על הטופס מקרוב:
+* &#x202b; לטופס יש אזור טקסט וכפתור "שליחה".
+* &#x202b; המאפיין `action` הוא ה-endpoint אליו ישלח המידע.
+* &#x202b; במאפיין `name` נשתמש בשלב מאוחר יותר לשם אזכור של המידע.
+
+&#x202b;
+כאשר תלחצי על Send, הטופס ישלח בקשת `POST` אל השרת, אל ה-endpoint שכתובתו מצוינת במאפיין `action`.
+במקרה שלנו אל `create-post/`.
+
+&#x202b;
+בהמשך, נצטרך להוסיף מעט קוד בשרת שלנו אשר יתמודד עם בקשות `POST /create-post` המגיעות ל-endpoint הזה.
 
 When you hit Send, the form will send a `POST` request to the server, using whatever is in the `action` attribute as the endpoint.  In our case it's `/create-post`.
 
-### Receiving the blog post on the server
+### &#x202b; קבלת הפוסט החדש לבלוג בשרת
 
-* Data doesn't come through the server in one go; it flows to the server in a **stream**.  Think of a stream as water flowing from a tap into a bucket.  Your job is to collect this water in the server.
+* &#x202b; המידע אינו מגיע אל השרת שלנו בבת אחת, הוא זורם אליו כמו ב-**stream**. תחשבי על stream כמו על מים הזורמים מהברז אל דלי.
 
-* If we were writing a pure Node server, we would have to think about how to collect the stream of data properly.  But luckily for us, Express handles all of that stuff under the hood.  
+* &#x202b; אם היינו כותבות שרת Node טהור, היינו חייבות לחשוב כיצד אנחנו אוספות את כל המידע שמגיע אל השרת כראוי. אבל למזלנו, Express מטפל בכל הדברים הלו בשבילנו.
 
-* All you need to do is define a route to deal with requests that come through on the `/create-post` endpoint.
+* &#x202b; כל מה שעלינו לעשות הוא להגדיר route (נתיב) חדש אשר מתמודד עם כל הבקשות המגיעות דרך ה-endpoint החדש: `/create-post`
 
-Let's remind ourselves of a simple `GET` route in Express:
+* &#x202b; בואי ניזכר כיצד נראה ה-route בשביל בקשת `GET` ב-Express
+
 ```js
 app.get('/my-lovely-endpoint', function (req, res) {
     res.send('Hello there!');
 });
 ```
 
-This time we want to define a route to deal with a `POST` request.  What do you think you would need to do differently?  Experiment and see if you can define a route for the `/create-post` endpoint!
+&#x202b;
+אבל הפעם אנחנו רוצות להגדיר route בשביל בקשות `POST`. מה את חושבת שעלינו לעשות שונה? נסי בעצמך לראות אם את יכולה להגדיר route חדש בשביל ה-endpoint שלנו `create-post/`
 
-For now, make your `/create-post` handler simply do this: `console.log('/create-post')`.
+&#x202b;
+בינתיים, תגרמי למתודה `create-post/` שלך לעשות כך:
+```
+console.log('/create-post')
+```
+
+&#x202b; **רמז!**
+
+&#x202b;
+אם את צריכה רמז, שאלי את המדריכה שלך או את אחת מחברותייך לקבוצה ותראי אם אתן יכולות לפתח זאת יחדיו.
+
+&#x202b;
+אם הצלחת בעצמך להתמודד עם בקשות המגיעות אל ה-endpoint החדש שלנו עם בקשות `POST`, את מוכנה לעבור לשלב הבא!
+
 
 ---
 
-### Extracting the blog post
+### &#x202b; Extracting the blog post
 
 Now the contents of your blogpost is hidden in your `req` object somewhere.  Normally you would extract it using `req.body`.  Try to console.log `req.body` now.
 

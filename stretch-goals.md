@@ -1,34 +1,44 @@
-# Stretch goals!
+# &#x202b; רעיונות נוספים
 
-If you finish early, or want to keep working on this as a side project after the workshop, here's some ideas on how to upgrade your creation.
+&#x202b;
+אם סיימת את הסדנה מוקדם או שאת רוצה להמשיך לעבוד על הפרויקט לאחר סיום הסדנה, הנה כמה רעיונות בשבילך כיצד לשדרג את היצירה שלך.
 
-It would be a great idea to create a new branch on Git for yourself, so you can experiment and not have to worry about ruining your previous code.
+&#x202b;
+על מנת להמשיך לעבוד נכון, זה רעיון מעולה ליצור branch חדש ב-Git לעצמך, כך תוכלי לעשות ניסויים ללא חשש לקוד הקודם שלך.
 
-### Display individual posts with URL parameters and templating
+### &#x202b; הצגת פוסטים בודדים ב-URL עם פרמטרים ותבניות 
 
-Try some more of express's features by adding a page for individual blog posts using express's URL
-parameters and templating stuff. [Tutorial here :)](extension-templating.md).
+&#x202b;
+נסי תכונות נוספות הקיימות ב-Express, ע"י הוספת עמוד לכל פוסט יחיד באמצעות פרמטרים ותבניות של Express ל-URL. המדריך נמצא [כאן](extension-templating.md).
 
-### Display the date
- Edit `script.js` so that the timestamps for the previous blog posts are displayed in a human-readable way.
+### &#x202b; הצגת התאריך
 
- * [Javascript date functions](http://www.w3schools.com/jsref/jsref_obj_date.asp)
+&#x202b;
+ערכי את הקובץ `script.js` כך שה-timestamp לפוסטים הישנים בבלוג שלך יוצגו באופן קריא.
+
+ * &#x202b; [פונקציות תאריך ב-JS](http://www.w3schools.com/jsref/jsref_obj_date.asp)
 
 
-### Use a database
-Instead of writing to a file on your hard drive, you could save your blog posts in a database, which would be much quicker in terms of performance if there was a lot of data.
+### &#x202b; השתמשי ב-Database
 
-A really simple, quick-to-setup database is Firebase, by Google.  Go to their website [here](https://firebase.google.com/docs/) and check out their Web Get Started guide.
+&#x202b;
+במקום לכתוב לקובץ על המחשב שלך, את יכולה לשמור את הפוסטים שלך ב-Database, כך שהשליפה ממנו והביצועים של השרת שלך יהיו טובים יותר במידה ויהיה לך הרבה מאוד מידע.
 
-### Host your blog online!
-Heroku is a what we call a *Platform as a Service*.  You upload your code to them and it will live on one of their servers, meaning you can access it on the general internet from anywhere!
+&#x202b;
+מדריך מאוד קל ומהיר, המסביר צעד אחר צעד הוא Firebase של Google. הסתכלי [באתר](https://firebase.google.com/docs/) שלהם וחפשי אחר המדריך.
 
-Heroku is good because they have a lot of free options for small-scale apps, like yours.
+### &#x202b; הפכי את האתר שלך לפומבי
+&#x202b;
+Heroku זו פלטפורמה, הנקראת פלטפורמה כשירות. את יכולה להעלות את הקוד שלך לשם, והוא יחיה על השרתים שלהם, כך שתוכלי לגשת אליו דרך האינטרנט מכל מקום!
+
+&#x202b;
+Heroku זו פלטפורמה טובה, מכיוון שיש להם הרבה אפשרויות בחינם לאפליקציות קטנות, כמו שלך.
 
 * [Heroku](https://www.heroku.com/platform)
 
-## Extra reading
-There's great resources out there for continuing your Node.js journey.  Here they are:
-
-* [NodeSchool](nodeschool.io) have really great interactive tutorials for all sorts of Node technologies.
+## &#x202b; קריאה נוספת
+&#x202b;
+ישנם כמה מקורות מידע להמשך המסע שלך עם Node.js
+ 
+* &#x202b; [NodeSchool](nodeschool.io) - מדריכים אינטראקטיביים לכל מיני טכנולוגיות ב-Node
 * [Error Handling](http://thenodeway.io/posts/understanding-error-first-callbacks/)
