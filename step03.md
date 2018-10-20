@@ -1,3 +1,41 @@
+
+#### `name`
+* npm suggests a default name for your project in brackets. If you want to give it your own name, just type it next to the brackets and press `Enter`.
+* If you're happy with the name in brackets, simply press `Enter`.
+
+#### `version`
+* This is your first project, so it will be version 1.0.0! Nothing to change here, so just press `Enter`.
+
+#### `description`
+* A simple description of your project. Write whatever you want and press `Enter`.
+
+#### `entry point`
+* This file will be the starting point for your whole project.
+* Let's change this from `(index.js)` to `server.js`, as we will be building a server later on!
+* Type `server.js` and press `Enter`.
+
+#### `test command`
+* Skip this one for now...press `Enter`.
+
+#### `git repository`
+* This is where your project would live on GitHub.  Press `Enter`.
+
+#### `keywords`
+* (Optional) You can add keywords to help people find your project if they search for it.
+
+#### `author`
+* It's your project, so write your name! You can use your GitHub name or your actual name.
+
+#### `license`
+* You can add a license, but we'll skip this.
+
+You will see a confirmation of your `package.json`. If you're happy with it, press `Enter` to finalise its creation.
+
+![package.json confirmation](https://raw.githubusercontent.com/node-girls/workshop-cms/master/readme-images/step1-npm-init02.png)
+
+Great! You should now see a new file called `package.json` in your project's folder.
+
+
 # Step 3 - Building the server
 
 The first thing we need to do is build our server. You will always need to build a server when writing back-end code. A server can be built in pure Node.js, but Express gives us simpler syntax to work with.
