@@ -28,7 +28,7 @@
 &#x202b;
 בואי נתחיל בהתקנת סביבת העבודה של המחשב שלך - במדריך לתחילת העבודה.
 
-### &#x202b; [לשלב הראשון >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step01.md)
+### &#x202b; [להתקנות >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/installations.md)
 
 ## &#x202b; קישורים שימושיים
 
