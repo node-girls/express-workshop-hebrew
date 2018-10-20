@@ -18,7 +18,7 @@
 ### &#x202b; מתודת בקשת `POST` ב-HTTP
 &#x202b;
 כאשר שולחים מידע לשרת, אנחנו משתמשים במתודה `POST` על מנת לבצע בקשת HTTP לשרת, במקום ב-`GET`.
-על מנת להבין את ההבדל בין `GET` לבין `POST`, תוכלי לקרוא עוד בקישור הנמצא בחלק "מילות מפתח" שבהמשך.
+על מנת להבין את ההבדל בין `GET` לבין `POST`, תוכלי לקרוא עוד בקישור הנמצא בחלק [מילות מפתח](https://github.com/node-girls/express-workshop-hebrew/blob/master/keyworks.md).
 
 &#x202b;
 בואי ננסה לשלוח (`POST`) טקסט כלשהו לשרת.
@@ -92,41 +92,5 @@ console.log('/create-post')
 
 &#x202b;
 אם הצלחת בעצמך להתמודד עם בקשות המגיעות אל ה-endpoint החדש שלנו עם בקשות `POST`, את מוכנה לעבור לשלב הבא!
-
-
----
-
-### &#x202b; Extracting the blog post
-
-Now the contents of your blogpost is hidden in your `req` object somewhere.  Normally you would extract it using `req.body`.  Try to console.log `req.body` now.
-
-Getting `undefined`?  Not to worry, that's normal.  When data has been `POST`ed to the server as `FormData`, we need to do things slightly differently to access the data that's come through in the request.
-
-We need another middleware function.  Something that can get extract the contents out of the special `FormData` object.  For this we will use `express-formidable`.  `express-formidable` is another Express middleware. It will extract the form data from the request and make it available to you when you do `req.fields`.
-
-This time though, `express-formidable` is not built-in, we need to explicitly install it.
-
-**In your terminal, install express-formidable**
-```bash
-npm install express-formidable --save
-```
-
-`require` `express-formidable` so you can use it in your code.  You can't use dashes in JavaScript variable names, so just call it `var formidable`.
-```js
-var formidable = require('express-formidable');
-```
-
-Now add this towards the top of your server, after your `require`s and `app.use(express.static('public'))`, but before your `/create-post` endpoint:
-```js
-app.use(formidable());
-
-```
-Now inside your `/create-post` function, add:
-```js
-console.log(req.fields);
-```
-Refresh your server and have another go at writing a blogpost.
-
-You should now see an object in the console.  The key should be `blogpost`, just like the name attribute in the form on the HTML page.  The value of `blogpost` will be your message!
 
 ### &#x202b; [לשלב 8 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step08.md)
