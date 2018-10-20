@@ -1,16 +1,28 @@
-# Step 2 - Installing Express
+# &#x202b; שלב שני: התקנת Express
+&#x202b;
+לפני שנתחיל לכתוב קוד, עליך להתקין את ספריית Express. אנו הולכות להשתמש ב- Node Package Manager כדי להוריד את הספרייה. על כן, נשתמש בפקודה הבאה להתקנה:
 
-Before we write any code, you'll need to install the Express library. We're going to use the **[Node Package Manager (npm)](https://www.npmjs.com/)** to download it using the **`npm install`** command.
+```
+$ npm install
+```
 
-NPM is the place to go to download other Node code written by other people.  There are thousands of open-source, 3rd-party Node modules (also known as "packages") by other people that you can download and use in your own projects. 
+&#x202b;
+NPM היא הפקודה שעינו להשתמש על מנת להוריד קוד נוסף של Node, שנכתב ע"י אנשים אחרים. ישנם אלפי מודולים (או packages) של Node, שנכתבו ע"י צד שלישי, הנקראים open-source, שנכתבו ע"י אנשים אחרים ואת יכולה להוריד ולהשתמש בפרויקטים שלך.
 
-As we install Express, we'll need to update the `package.json` to add Express as a dependency. We do this so that other people working on the project will know to install Express before running any of the code. This can be done by adding **`--save`** to the end of your command.
+&#x202b;
+כאשר נתקין את Express, נצטרך לעדכן את קובץ ה-package.json שלנו, כדי להוסיף את Express כתלות (dependency). אנו עושות זאת על מנת שאנשים אחרים שירצו לעבוד על הפרויקט שלך, ידעו שעליהם להתקין את Express לפני שהם מתחילים להריץ או לכתוב קוד. ניתן לעשות זאת ע"י הוספת `save--` בסוף שורת ההתקנה. 
 
-Run the following command in your terminal:
+&#x202b;
+הריצי את הפקודה הבאה בטרמינל שלך:
 
 `$ npm install express --save`
 
-Express should now be installed. Check your `package.json` file to make sure it has been added as a dependency. It will look like this:
+&#x202b;
+Express צריך להיות מותקן כרגע. בדקי את קובץ ה- `package.json` שלך על מנת לוודא שזה אכן התווסף כתלות חדשה.
+
+&#x202b;
+זה נראה ככה:
+
 
 ![package.json screenshot](https://cloud.githubusercontent.com/assets/10683087/16382664/be35f0b4-3c79-11e6-82b6-ae9e4a037c3f.png)
 

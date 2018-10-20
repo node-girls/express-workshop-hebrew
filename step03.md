@@ -1,52 +1,68 @@
-# Step 3 - Building the server
+# &#x202b; שלב שלישי: בניית השרת
 
-The first thing we need to do is build our server. You will always need to build a server when writing back-end code. A server can be built in pure Node.js, but Express gives us simpler syntax to work with.
+&#x202b;
+הדבר הראשון שעלינו לעשות זה לבנות את השרת שלנו. את תמיד תצטרכי לבנות שרת בעת כתיבת קוד backend. שרת יכול להיבנות ב-Node.js, אך Express מפשט לנו דברים והופך את זה לקל יותר.
 
-## What is a server?
+## &#x202b; מה זה שרת?
 
-Servers are computer programs that receive requests from other programs, the *clients* and send back a response e.g share data, information or hardware and software resources.
+&#x202b;
+שרתים הם תוכנות מחשב שמקבלות בקשות מתוכנות אחרות, "הלקוח", ושולחות בחזרה את התגובה. כלומר, את המידע המבוקש או כל מקור חומרה / תוכנה אחר.
 
-### ...and what is a server in plain English?
+### &#x202b; … ומה זה שרת בעברית?
 
-A server is a computer program. Its job is to send and receive data.
+&#x202b;
+שרת הוא תוכנת מחשב. התפקיד שלו הוא לשלוח ולקבל מידע.
 
-Let's take a website for example.  A website is just a collection of HTML and CSS files, images, maybe some javascript files. When you type a website address in your browser's address bar, the browser (client) sends a **request** to the server that lives at that address. The browser asks the server to give it the files it needs to display the website properly.
-
+&#x202b;
+בואי ניקח לדוגמה אתר אינטרנט. אתר אינטרנט הוא רק אוסף של קבצי HTML ו-CSS, ואולי קצת קבצי JavaScript. כאשר את מקלידה את כתובת האתר בשורת הכתובת בדפדפן שלך, הדפדפן (הלקוח) שולח בקשה לשרת שחי בכתובת הזו. הדפדפן מבקש מהשרת שיביא לו את הקבצים שהוא צריך להציג בשביל להראות את האתר.
 
 ![Server flow](https://files.gitter.im/heron2014/FiiK/server.png)
 
-## 1. Create a `server.js` file
+## &#x202b; 1. יצירת קובץ `server.js`
 
-Let's build our server! Before we do anything, let's create a new file called `server.js`. This is where all our server code is going to live.
+&#x202b;
+בואי ניצור את השרת שלנו! לפני שאנו מתחילות לעשות משהו, עלינו ליצור קובץ חדש שנקרא `server.js`. זה המקום בו כל הקוד שלנו הולך להיות.
 
-## 2. `require` the `express` library
+## &#x202b; 2. `require` לתיקיית Express
 
-We already installed Express in Step 2, but we need to make sure it is included in this file specifically so we can make use of its methods. In Node.js, when you want to access the functionality of a library or module in another file, you `require` it.
+&#x202b;
+התקנו כבר את Express בשלב 2, אך עלינו לוודא שהוא כלול בקובץ שלנו באופן ספציפי, כדי שנוכל לבצע שימוש במתודות שלו. ב-Node.js, כאשר את רוצה לגשת לפונקציונליות של ספריות או מודולים בקבצים אחרים, עליך לעשות להם `require` לקובץ שלך.
 
-To import Express, write the following inside `server.js`:
+&#x202b;
+על מנת לייבא את Express, כתבי את שורת הקוד הבאה בקובץ `server.js` בהתחלה:
 
 ```js
 var express = require('express');
 ```
 
-## 3. Initialise the server
+## &#x202b; 3. אתחול השרת 
 
-To initialise our server, we just need to call the `express()` function. This will create an Express application for us to work with.
+&#x202b;
+על מנת לאתחל את השרת, אנו רק צריכים לקרוא לפונקציה `()express`. פקודה זו תיצור לנו אפליקציית Express לעבוד איתה.
 
-Add the second line of code to your `server.js` file:
+&#x202b;
+בשורה השנייה של הקוד שלך בקובץ `server.js` כתבי:
 
 ```js
 var express = require('express');
 var app = express();
 ```
 
-## 4. Start 'listening' for potential requests
+## &#x202b; 4. "האזנה" לבקשות פוטנציאליות
+&#x202b;
+שלב אחד נוסף נותר, עלינו להגדיר את ה-**port** שבו השרת שלנו יאזין.
+תחשבי שה-port הוא כמו מספר דירה בבניין - כל בקשה שתגיע אל השרת שלך, תעבור דרך הדלת שעליה כתוב מספר הדירה.
+הגדרת ה-port תאפשר לנו למצוא בקלות איפה השרת שלנו רץ.
 
-One more step left, we need to set a **port** for our server to listen to. Think of a port as a door number; any requests that come to the server will come via that door. Setting a port will allow us to find where our server is running.
+&#x202b;
+אנו נשתמש במתודה **`app.listen`** לעשות את זה.
+המתודה הזו מקבלת שני ארגומנטים: מספר **port** ופונקצית **callback**, אשר אומרת מה לעשות ברגע שהשרת רץ.
 
-We use the **`app.listen`** method to do this. This method takes two arguments: a **port** and a **callback function** telling it what to do once the server is running. Need clarification? Read more about the `app.listen` method in the [Express documentation](http://expressjs.com/en/4x/api.html#app.listen).
+&#x202b;
+צריכה הסבר נוסף? קראי עוד על המתודה `app.listen` באתר של [Express](http://expressjs.com/en/4x/api.html#app.listen).
 
-We're going to run our server on port `3000`, and run a simple `console.log` as our callback function. Update your `server.js` file, calling the `app.listen` method:
+&#x202b;
+אנו הולכות להריץ את השרת שלנו ב-port מספר `3000`, לקרוא ב-callback ל-`console.log`. עדכני את קובץ ה-`server.js` שיקרא למתודה `app.listen`:
 
 ```js
 var express = require('express');
@@ -57,31 +73,22 @@ app.listen(3000, function () {
 });
 ```
 
-## 5. Switch the server on!
+## &#x202b;  5. הפעלת השרת!
 
-You've built your server, but it isn't running yet. We need to run a command in the terminal to do this. We are going to use the `node` keyword to run the server file.
+&#x202b;
+בנית את השרת שלך, אך הוא עדיין לא רץ. עליך להריץ פקודה בטרמינל על מנת להריץ אותו. אנו עומדות להשתמש במילת המפתח `node` בשביל להריץ את קובץ השרת.
 
-Type the following command in your terminal:
+&#x202b;
+הקלידי את הפקודה הבאה בטרמינל שלך:
+
 ```
 $ node server.js
 ```
 
-If you see this, congratulations! You have built yourself a server!
+&#x202b;
+אם את רואה את השורה הבאה, מזל טוב! בנית לעצמך שרת!
 
 ![success](https://raw.githubusercontent.com/node-girls/workshop-cms/master/readme-images/step2-server02.png)
 
 
 ### &#x202b; [לשלב 4 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step04.md)
-
-## Keywords
-
-| Keyword | Explanation |
-|--------|:-------------------------------:|
-| server | A web server is a software application which handles HTTP requests sent by the client, like web browsers, and returns web pages and information in response. |
-| client | A client requests services and information from the server. Typically, a client is a computer application, such as a web browser. |
-| request | A request is the message sent via HTTP from the client to the server, asking for information. |
-| response | A response is the data sent back to the client from the server after an HTTP request is made. |
-| `require()` | Require is used in Node.js to import functionality from another file or an external module. |
-| module | A module is a bit of reusable code, written by you or someone else, that can be imported into a Node.js project using require. |
-| method | Method is another name for a function. |
-| port | A port is a number that serves as an endpoint, determining where you can access your web application. |

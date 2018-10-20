@@ -1,16 +1,28 @@
-# Step 4 - Communicating with the server
+# &#x202b; שלב רביעי: תקשורת עם השרת
 
-Now that we've built the server, we need to communicate with it. We're going to control the server with **handler functions**.
+&#x202b;
+כעת כשיש לך שרת שאת בנית, עלינו לתקשר איתו.
+אנו הולכות לשלוט בשרת באמצעות פונקציית **handler**.
 
-### What is a handler function?
+### &#x202b; מה זה פונקציית handler (מטפל) ?
 
-When a request reaches the server, we need a way of responding to it. In comes the handler function. The handler function is just a function which receives requests and handles them, hence the name.
+&#x202b;
+כאשר בקשה מגיעה אל השרת, אנו צריכות למצוא דרך כיצד להגיב לה.
+כאן נכנסת לתמונה פונקציית ה-handler.
+פונקציה זו היא רק פונקציה אשר מקבלת בקשות ומטפלת בהן, ומכאן שמה.
 
-The handler function always takes a `request` and `response` object, and sends the response back to the client along with some information. You can decide what to send back in your response.
+&#x202b;
+הפונקציה תמיד מקבלת את אובייקט הבקשה `request` ומחזירה בתגובה ללקוח את אובייקט התגובה response, יחד עם מידע כלשהו.
+את תבחרי מה לשלוח ב-response שלך.
 
-### What does a handler function look like in Express?
+### &#x202b; כיצד נראית פונקציית handler ב-Express
 
-The `get()` method is used to define a handler function in Express. It takes two parameters: the **endpoint** at which to trigger an action (we'll explain more about this in the next step), and the handler function that tells it exactly what to do. Here's a simple "Hello World!" example:
+&#x202b;
+מתודה `get()` משתמשת להגדרת ה-handler ב-Express.
+היא מקבלת שני פרמטרים: את ה-**endpoint** אשר מפעילה את הפעולה (אנו נסביר על זה יותר בשלב הבא), ואת פונקציית ה-handler, אשר אומרת לנו מה לעשות.
+
+&#x202b;
+ככה נראית דוגמה פשוטה:
 
 ```js
 app.get("/", function (req, res) {
@@ -18,14 +30,16 @@ app.get("/", function (req, res) {
 });
 ```
 
- Here, we are telling our server to respond with "Hello World!" when someone tries to access the webpage.
+&#x202b;
+ כאן, אנו אומרים לשרת שלנו להגיב עם "Hello World" כאשר מישהו מנסה לגשת אל עמוד האינטרנט.
 
-## 1. Create your own handler function.
+## &#x202b; 1. צרי בעצמך את פונקציית ה-handler
 
-We are now making a handler function with a custom message in our response. You can write any message you want.
+&#x202b;
+כעת אנחנו יוצרות פונקציית handler עם הודעה מותאמת אישית בתגובה. את יכולה לכתוב איזו הודעה שתרצי.
 
-Update your `server.js` file with an empty `app.get()` function:
-
+&#x202b;
+הוסיפי לקובץ `server.js` את הפונקציה הריקה `app.get()`:
 
 ```js
 var express = require("express");
@@ -40,13 +54,16 @@ app.listen(3000, function () {
 });
 ```
 
-Try to `console.log` the `req` object inside the handler function. Restart your server, refresh the browser, then go to your terminal to see what it looks like. You should see a lot of data come through.
+&#x202b;
+נסי להדפיס לקונסול בעזרת `console.log` את האובייקט `req` בתוך פונקציית ה-handler. עשי ריסטרט לשרת שלך, ולאחר מכן, לכי לטרמינל לראות איך זה נראה. את אמורה לראות הרבה מאוד מידע.
 
-## 2. Tell your handler function what to do
+## &#x202b; 2. אמרי לפונקציית ה-handler שלך מה לעשות
 
-We want our handler function to send back a message to the client. To do that, we're going to use the Express `send()` method. This will update the response object with the message.
+&#x202b;
+אנו רוצות שפונקציית ה-handler שלנו תשלח בחזרה הודעה ללקוח. על מנת לעשות זאת, אנו הולכות להשתמש במתודת `send()` של Express. מודה זו תעדכן את אובייקט ה-response עם ההודעה שלנו.
 
-Update your handler function like so:
+&#x202b;
+עדכני את פונקציית ה-handler כך:
 
 ```js
 var express = require("express");
@@ -61,14 +78,16 @@ app.listen(3000, function () {
 });
 ```
 
-## 3. Check it out in your browser
+## &#x202b; 3. בדקי זאת בדפדפן
 
-Quit your server in the terminal with `ctrl + c`. Then restart it to run your new changes.
+&#x202b;
+צאי מהשרת שלך בטרמינל באמצעות לחיצה על המקשים `ctrl + c`. עכשיו, הפעילי אותו מחדש כדי לראות את השינויים החדשים שלך.
 
 ```
 $ node server.js
 ```
 
-Now, open your favourite browser (we like Chrome), and navigate to `http://localhost:3000`. If you see your message in the browser, congratulations! You just sent your first response from the server.
+&#x202b;
+עכשיו, פתחי את הדפדפן האהוב עליך, וגלשי לכתובת: `http://localhost:3000` . אם את רואה את ההודעה שלך בדפדפן, מזל טוב! עכשיו שלחת את ה-response הראשון שלך מהשרת.
 
 ### &#x202b; [לשלב 5 >>>>](https://github.com/node-girls/express-workshop-hebrew/blob/master/step05.md)
